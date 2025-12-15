@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fonctionnement - Chauffe-Eau Électrique</title>
+    <meta name="description" content="Comprendre le fonctionnement du chauffe-eau électrique : principe de stratification, circuits hydraulique et électrique">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Bibliothèques d'animation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #f97316;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .animated-water {
+            animation: flow 3s ease-in-out infinite;
+        }
+        
+        @keyframes flow {
+            0%, 100% { transform: translateY(0px); opacity: 0.7; }
+            50% { transform: translateY(-10px); opacity: 1; }
+        }
+        
+        .heat-wave {
+            animation: heat 2s ease-in-out infinite;
+        }
+        
+        @keyframes heat {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .interactive-schema {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .interactive-schema:hover {
+            transform: scale(1.02);
+        }
+        
+        .step-indicator {
+            transition: all 0.3s ease;
+        }
+        
+        .step-indicator.active {
+            background-color: #3b82f6;
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        .circuit-animation {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: draw 3s ease-in-out infinite;
+        }
+        
+        @keyframes draw {
+            0% { stroke-dashoffset: 1000; }
+            50% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: -1000; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <a href="index.html" class="text-xl font-bold text-gray-800">Chauffe-Eau Pro</a>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="nav-link text-gray-800 hover:text-orange-600 px-3 py-2 text-sm font-medium">Accueil</a>
+                        <a href="composants.html" class="nav-link text-gray-800 hover:text-orange-600 px-3 py-2 text-sm font-medium">Composants</a>
+                        <a href="fonctionnement.html" class="nav-link text-orange-600 px-3 py-2 text-sm font-medium border-b-2 border-orange-600">Fonctionnement</a>
+                        <a href="maintenance.html" class="nav-link text-gray-800 hover:text-orange-600 px-3 py-2 text-sm font-medium">Maintenance</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="bg-gradient-to-r from-blue-600 to-blue-800 text-white pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-5xl font-bold mb-6">Fonctionnement</h1>
+                <p class="text-xl text-blue-100 max-w-3xl mx-auto">
+                    Comprendre le principe de fonctionnement de votre chauffe-eau électrique pour une meilleure utilisation
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Principe de Stratification -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Principe de Stratification</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Le cœur du fonctionnement repose sur la stratification thermique de l'eau
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <div class="bg-blue-50 p-6 rounded-xl">
+                        <h3 class="text-2xl font-semibold text-blue-800 mb-4">Qu'est-ce que la stratification ?</h3>
+                        <p class="text-blue-700 mb-4">
+                            La stratification est un phénomène physique naturel où l'eau chaude, 
+                            étant plus légère que l'eau froide, monte en haut de la cuve.
+                        </p>
+                        <ul class="text-blue-600 space-y-2">
+                            <li class="flex items-center">
+                                <span class="w-3 h-3 bg-red-500 rounded-full mr-3"></span>
+                                <span><strong>Eau chaude (55-65°C)</strong> : en haut de la cuve</span>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="w-3 h-3 bg-blue-500 rounded-full mr-3"></span>
+                                <span><strong>Eau froide (15-20°C)</strong> : en bas de la cuve</span>
+                            </li>
+                            <li class="flex items-center">
+                                <span class="w-3 h-3 bg-gray-400 rounded-full mr-3"></span>
+                                <span><strong>Zone de transition</strong> : entre les deux couches</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-orange-50 p-6 rounded-xl">
+                        <h3 class="text-2xl font-semibold text-orange-800 mb-4">Avantages de la stratification</h3>
+                        <ul class="text-orange-700 space-y-2">
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Eau chaude immédiatement disponible en haut</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Chauffe ciblée de l'eau froide uniquement</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Économie d'énergie significative</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-orange-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Meilleure efficacité thermique</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-green-50 p-6 rounded-xl">
+                        <h3 class="text-2xl font-semibold text-green-800 mb-4">Le brise-jet</h3>
+                        <p class="text-green-700 mb-4">
+                            Dispositif essentiel qui "casse" la pression de l'eau froide entrante 
+                            pour préserver la stratification.
+                        </p>
+                        <div class="bg-green-100 p-3 rounded-lg">
+                            <p class="text-green-800 text-sm font-medium">
+                                Sans brise-jet, l'eau froide mélangera avec l'eau chaude !
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <div class="interactive-schema bg-gray-100 p-8 rounded-xl shadow-lg mb-6">
+                        <svg viewBox="0 0 300 400" class="w-full h-auto max-w-sm mx-auto">
+                            <!-- Cuve -->
+                            <rect x="50" y="50" width="200" height="300" fill="none" stroke="#374151" stroke-width="3" rx="10"/>
+                            
+                            <!-- Eau chaude (haut) -->
+                            <rect x="55" y="55" width="190" height="120" fill="#ef4444" opacity="0.7" class="heat-wave"/>
+                            <text x="150" y="125" text-anchor="middle" class="text-sm font-bold" fill="#dc2626">EAU CHAUDE</text>
+                            <text x="150" y="145" text-anchor="middle" class="text-xs" fill="#dc2626">55-65°C</text>
+                            
+                            <!-- Zone de transition -->
+                            <rect x="55" y="175" width="190" height="40" fill="#f59e0b" opacity="0.5"/>
+                            <text x="150" y="200" text-anchor="middle" class="text-xs font-bold" fill="#d97706">ZONE DE TRANSITION</text>
+                            
+                            <!-- Eau froide (bas) -->
+                            <rect x="55" y="215" width="190" height="130" fill="#3b82f6" opacity="0.7" class="animated-water"/>
+                            <text x="150" y="285" text-anchor="middle" class="text-sm font-bold" fill="#2563eb">EAU FROIDE</text>
+                            <text x="150" y="305" text-anchor="middle" class="text-xs" fill="#2563eb">15-20°C</text>
+                            
+                            <!-- Résistance -->
+                            <rect x="120" y="250" width="60" height="80" fill="#f97316" opacity="0.8"/>
+                            <text x="150" y="295" text-anchor="middle" class="text-xs font-bold" fill="#ea580c">RÉSISTANCE</text>
+                            
+                            <!-- Brise-jet -->
+                            <circle cx="80" cy="240" r="8" fill="#10b981"/>
+                            <text x="80" y="255" text-anchor="middle" class="text-xs font-bold" fill="#059669">BR</text>
+                            
+                            <!-- Flèches de circulation -->
+                            <path d="M 80 350 L 80 280" stroke="#059669" stroke-width="2" marker-end="url(#arrowhead)" class="animated-water"/>
+                            <path d="M 150 220 L 150 170" stroke="#ef4444" stroke-width="2" marker-end="url(#arrowhead)" class="heat-wave"/>
+                            
+                            <!-- Marqueurs de flèche -->
+                            <defs>
+                                <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                    <polygon points="0 0, 10 3.5, 0 7" fill="#374151"/>
+                                </marker>
+                            </defs>
+                        </svg>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-blue-800 mb-2">Cliquez sur le schéma pour voir l'animation</h4>
+                        <p class="text-sm text-blue-700">
+                            L'animation montre la circulation naturelle de l'eau selon sa température
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Circuit Hydraulique -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Circuit Hydraulique</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Le parcours de l'eau dans votre chauffe-eau électrique
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Entrée d'eau froide -->
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">1. Entrée d'eau froide</h3>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-medium text-blue-800 mb-2">Caractéristiques</h4>
+                            <ul class="text-sm text-blue-700 space-y-1">
+                                <li>• Pression du réseau (1-6 bars)</li>
+                                <li>• Température : 10-20°C</li>
+                                <li>• Entrée par le bas de la cuve</li>
+                                <li>• Passage par le brise-jet</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-medium text-gray-800 mb-2">Rôle</h4>
+                            <p class="text-sm text-gray-700">
+                                Alimente en permanence la cuve pour remplacer l'eau chaude consommée.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Chauffe -->
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">2. Phase de chauffe</h3>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-orange-50 p-4 rounded-lg">
+                            <h4 class="font-medium text-orange-800 mb-2">Processus</h4>
+                            <ul class="text-sm text-orange-700 space-y-1">
+                                <li>• Résistance active (effet Joule)</li>
+                                <li>• Température : 55-65°C</li>
+                                <li>• Durée : 4-8 heures</li>
+                                <li>• Thermostat régule le cycle</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-medium text-gray-800 mb-2">Transformation</h4>
+                            <p class="text-sm text-gray-700">
+                                L'eau froide est chauffée et remonte naturellement en haut de la cuve.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sortie eau chaude -->
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">3. Sortie eau chaude</h3>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-red-50 p-4 rounded-lg">
+                            <h4 class="font-medium text-red-800 mb-2">Distribution</h4>
+                            <ul class="text-sm text-red-700 space-y-1">
+                                <li>• Prise en haut de la cuve</li>
+                                <li>• Température stable 55-65°C</li>
+                                <li>• Débit selon besoin</li>
+                                <li>• Mélange avec eau froide</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-medium text-gray-800 mb-2">Usage</h4>
+                            <p class="text-sm text-gray-700">
+                                Eau chaude sanitaire disponible immédiatement aux points de puisage.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Schéma interactif -->
+            <div class="mt-16">
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Schéma du Circuit Hydraulique</h3>
+                    
+                    <div class="interactive-schema" onclick="animateHydraulicCircuit()">
+                        <svg viewBox="0 0 600 400" class="w-full h-auto max-w-4xl mx-auto">
+                            <!-- Chauffe-eau -->
+                            <rect x="200" y="100" width="200" height="200" fill="none" stroke="#374151" stroke-width="3" rx="10"/>
+                            
+                            <!-- Entrée eau froide -->
+                            <rect x="50" y="180" width="100" height="40" fill="#3b82f6" rx="5"/>
+                            <text x="100" y="205" text-anchor="middle" class="text-sm font-bold" fill="white">EAU FROIDE</text>
+                            <path d="M 150 200 L 200 250" stroke="#3b82f6" stroke-width="4" class="circuit-animation"/>
+                            
+                            <!-- Sortie eau chaude -->
+                            <rect x="450" y="180" width="100" height="40" fill="#ef4444" rx="5"/>
+                            <text x="500" y="205" text-anchor="middle" class="text-sm font-bold" fill="white">EAU CHAUDE</text>
+                            <path d="M 400 150 L 450 200" stroke="#ef4444" stroke-width="4" class="circuit-animation"/>
+                            
+                            <!-- Résistance -->
+                            <rect x="250" y="220" width="100" height="60" fill="#f97316" rx="5"/>
+                            <text x="300" y="255" text-anchor="middle" class="text-sm font-bold" fill="white">RÉSISTANCE</text>
+                            
+                            <!-- Brise-jet -->
+                            <circle cx="180" cy="240" r="12" fill="#10b981"/>
+                            <text x="180" y="245" text-anchor="middle" class="text-xs font-bold" fill="white">BJ</text>
+                            
+                            <!-- Groupe de sécurité -->
+                            <rect x="350" y="320" width="80" height="30" fill="#6b7280" rx="5"/>
+                            <text x="390" y="340" text-anchor="middle" class="text-xs font-bold" fill="white">GROUPE SECU</text>
+                            <path d="M 390 300 L 390 320" stroke="#6b7280" stroke-width="3"/>
+                            
+                            <!-- Vase d'expansion -->
+                            <circle cx="480" cy="120" r="25" fill="#8b5cf6"/>
+                            <text x="480" y="125" text-anchor="middle" class="text-xs font-bold" fill="white">VE</text>
+                            <path d="M 450 150 L 465 145" stroke="#8b5cf6" stroke-width="3"/>
+                            
+                            <!-- Flèches de circulation -->
+                            <defs>
+                                <marker id="arrowblue" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                    <polygon points="0 0, 10 3.5, 0 7" fill="#3b82f6"/>
+                                </marker>
+                                <marker id="arrowred" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                    <polygon points="0 0, 10 3.5, 0 7" fill="#ef4444"/>
+                                </marker>
+                            </defs>
+                        </svg>
+                    </div>
+                    
+                    <div class="mt-6 text-center">
+                        <p class="text-gray-600 text-sm">
+                            <strong>Cliquez sur le schéma</strong> pour voir l'animation du circuit hydraulique
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Circuit Électrique -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Circuit Électrique</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Le système électrique qui alimente et contrôle votre chauffe-eau
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12">
+                <div class="space-y-8">
+                    <div class="bg-yellow-50 p-6 rounded-xl border-l-4 border-yellow-500">
+                        <h3 class="text-2xl font-semibold text-yellow-800 mb-4">Sécurité Électrique</h3>
+                        <ul class="text-yellow-700 space-y-3">
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-yellow-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span><strong>Disjoncteur différentiel</strong> : Protection contre les fuites</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-yellow-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span><strong>Disjoncteur magnétothermique</strong> : Protection contre les surcharges</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-yellow-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span><strong>Mise à la terre</strong> : Obligatoire pour la sécurité</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-yellow-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span><strong>Câbles 2.5mm²</strong> : Section minimale recommandée</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-purple-50 p-6 rounded-xl border-l-4 border-purple-500">
+                        <h3 class="text-2xl font-semibold text-purple-800 mb-4">Composants Électriques</h3>
+                        <div class="space-y-4">
+                            <div class="bg-white p-4 rounded-lg">
+                                <h4 class="font-medium text-purple-700 mb-2">Contacteur Jour/Nuit</h4>
+                                <p class="text-sm text-purple-600">
+                                    Permet de profiter des heures creuses pour chauffer l'eau à moindre coût.
+                                </p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg">
+                                <h4 class="font-medium text-purple-700 mb-2">Thermostat</h4>
+                                <p class="text-sm text-purple-600">
+                                    Régule la température et coupe l'alimentation en cas de surchauffe.
+                                </p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg">
+                                <h4 class="font-medium text-purple-700 mb-2">Résistance</h4>
+                                <p class="text-sm text-purple-600">
+                                    Convertit l'énergie électrique en chaleur (1200-3000W).
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-green-50 p-6 rounded-xl border-l-4 border-green-500">
+                        <h3 class="text-2xl font-semibold text-green-800 mb-4">Puissance et Consommation</h3>
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div class="bg-white p-3 rounded-lg">
+                                <h5 class="font-medium text-green-700 mb-1">Puissance</h5>
+                                <p class="text-green-600">1200-3000W</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg">
+                                <h5 class="font-medium text-green-700 mb-1">Tension</h5>
+                                <p class="text-green-600">230V monophasé</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg">
+                                <h5 class="font-medium text-green-700 mb-1">Consommation</h5>
+                                <p class="text-green-600">2-8 kWh/jour</p>
+                            </div>
+                            <div class="bg-white p-3 rounded-lg">
+                                <h5 class="font-medium text-green-700 mb-1">Intensité</h5>
+                                <p class="text-green-600">5-13A</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Schéma Électrique</h3>
+                    
+                    <div class="space-y-6">
+                        <svg viewBox="0 0 400 300" class="w-full h-auto">
+                            <!-- Alimentation -->
+                            <rect x="20" y="130" width="60" height="40" fill="#fbbf24" rx="5"/>
+                            <text x="50" y="155" text-anchor="middle" class="text-sm font-bold" fill="#92400e">230V</text>
+                            
+                            <!-- Disjoncteurs -->
+                            <rect x="100" y="130" width="40" height="40" fill="#ef4444" rx="5"/>
+                            <text x="120" y="155" text-anchor="middle" class="text-xs font-bold" fill="white">DJ</text>
+                            <rect x="150" y="130" width="40" height="40" fill="#ef4444" rx="5"/>
+                            <text x="170" y="155" text-anchor="middle" class="text-xs font-bold" fill="white">DF</text>
+                            
+                            <!-- Contacteur -->
+                            <rect x="210" y="100" width="60" height="40" fill="#3b82f6" rx="5"/>
+                            <text x="240" y="125" text-anchor="middle" class="text-xs font-bold" fill="white">J/N</text>
+                            
+                            <!-- Thermostat -->
+                            <rect x="210" y="160" width="60" height="40" fill="#10b981" rx="5"/>
+                            <text x="240" y="185" text-anchor="middle" class="text-xs font-bold" fill="white">T°</text>
+                            
+                            <!-- Résistance -->
+                            <rect x="300" y="130" width="80" height="40" fill="#f97316" rx="5"/>
+                            <text x="340" y="155" text-anchor="middle" class="text-sm font-bold" fill="white">R</text>
+                            
+                            <!-- Lignes de connexion -->
+                            <path d="M 80 150 L 100 150" stroke="#374151" stroke-width="3"/>
+                            <path d="M 140 150 L 150 150" stroke="#374151" stroke-width="3"/>
+                            <path d="M 190 150 L 210 120" stroke="#374151" stroke-width="3"/>
+                            <path d="M 190 150 L 210 180" stroke="#374151" stroke-width="3"/>
+                            <path d="M 270 120 L 270 180" stroke="#374151" stroke-width="3"/>
+                            <path d="M 270 150 L 300 150" stroke="#374151" stroke-width="3"/>
+                            
+                            <!-- Terre -->
+                            <path d="M 340 170 L 340 200" stroke="#059669" stroke-width="3"/>
+                            <path d="M 330 200 L 350 200" stroke="#059669" stroke-width="3"/>
+                            <text x="345" y="220" class="text-xs font-bold" fill="#059669">⏚</text>
+                        </svg>
+                        
+                        <div class="text-sm text-gray-600 space-y-2">
+                            <div class="flex justify-between">
+                                <span>DJ : Disjoncteur Jour</span>
+                                <span>DF : Disjoncteur Différentiel</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>J/N : Contacteur Jour/Nuit</span>
+                                <span>T° : Thermostat</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span>R : Résistance</span>
+                                <span>⏚ : Terre</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 bg-yellow-100 p-4 rounded-lg">
+                        <h4 class="font-semibold text-yellow-800 mb-2">Important</h4>
+                        <p class="text-sm text-yellow-700">
+                            L'installation électrique doit être réalisée par un professionnel 
+                            conformément aux normes NFC 15-100.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cycle de Chauffe -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Cycle de Chauffe Complet</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Suivez étape par étape le cycle complet de chauffe de votre chauffe-eau
+                </p>
+            </div>
+            
+            <div class="bg-white p-8 rounded-xl shadow-lg">
+                <div class="grid lg:grid-cols-4 gap-6 mb-8">
+                    <div class="step-card text-center p-6 bg-blue-50 rounded-xl" data-step="1">
+                        <div class="step-indicator w-12 h-12 bg-blue-200 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold text-blue-800">1</div>
+                        <h3 class="text-lg font-semibold text-blue-800 mb-2">Démarrage</h3>
+                        <p class="text-sm text-blue-700">
+                            Le thermostat détecte que la température est inférieure au seuil de consigne.
+                        </p>
+                    </div>
+                    
+                    <div class="step-card text-center p-6 bg-orange-50 rounded-xl" data-step="2">
+                        <div class="step-indicator w-12 h-12 bg-orange-200 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold text-orange-800">2</div>
+                        <h3 class="text-lg font-semibold text-orange-800 mb-2">Chauffe</h3>
+                        <p class="text-sm text-orange-700">
+                            La résistance s'allume et commence à chauffer l'eau par effet Joule.
+                        </p>
+                    </div>
+                    
+                    <div class="step-card text-center p-6 bg-green-50 rounded-xl" data-step="3">
+                        <div class="step-indicator w-12 h-12 bg-green-200 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold text-green-800">3</div>
+                        <h3 class="text-lg font-semibold text-green-800 mb-2">Montée en température</h3>
+                        <p class="text-sm text-green-700">
+                            L'eau chauffe progressivement et remonte en haut de la cuve par stratification.
+                        </p>
+                    </div>
+                    
+                    <div class="step-card text-center p-6 bg-red-50 rounded-xl" data-step="4">
+                        <div class="step-indicator w-12 h-12 bg-red-200 rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold text-red-800">4</div>
+                        <h3 class="text-lg font-semibold text-red-800 mb-2">Arrêt</h3>
+                        <p class="text-sm text-red-700">
+                            Le thermostat coupe la résistance lorsque la température de consigne est atteinte.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <button id="start-cycle" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold text-lg transition-colors">
+                        Démarrer l'Animation du Cycle
+                    </button>
+                </div>
+                
+                <div id="cycle-animation" class="mt-8 hidden">
+                    <div class="bg-gradient-to-r from-blue-100 to-blue-200 p-6 rounded-xl">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-blue-800 font-medium">Température de l'eau</span>
+                            <span id="temp-display" class="text-2xl font-bold text-blue-800">20°C</span>
+                        </div>
+                        <div class="w-full bg-blue-200 rounded-full h-4">
+                            <div id="temp-bar" class="bg-blue-600 h-4 rounded-full transition-all duration-1000" style="width: 10%"></div>
+                        </div>
+                        <div class="flex justify-between text-sm text-blue-700 mt-2">
+                            <span>15°C</span>
+                            <span>60°C</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 text-center">
+                        <div id="cycle-status" class="text-lg font-semibold text-gray-800">
+                            Cycle en attente...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gray-800 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold mb-6">Compréhension du Fonctionnement</h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                Maintenant que vous comprenez le fonctionnement, découvrez comment maintenir votre chauffe-eau en parfait état
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="maintenance.html" class="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105">
+                    Guide de Maintenance
+                </a>
+                <a href="composants.html" class="bg-gray-700 hover:bg-gray-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300">
+                    Voir les Composants
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h3 class="text-2xl font-bold mb-4">Chauffe-Eau Pro</h3>
+                <p class="text-gray-400 mb-6 max-w-2xl mx-auto">
+                    Guide professionnel pour la compréhension et la maintenance des chauffe-eau électriques
+                </p>
+                <div class="border-t border-gray-700 pt-6">
+                    <p class="text-gray-500 text-sm">
+                        © 2025 Chauffe-Eau Pro. Tous droits réservés. Guide éducatif pour professionnels et particuliers.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+    
+    <script>
+        // Animation du cycle de chauffe
+        function animateCycle() {
+            const steps = document.querySelectorAll('.step-card');
+            const tempBar = document.getElementById('temp-bar');
+            const tempDisplay = document.getElementById('temp-display');
+            const statusDisplay = document.getElementById('cycle-status');
+            const indicators = document.querySelectorAll('.step-indicator');
+            
+            let currentStep = 0;
+            let temperature = 20;
+            
+            const cycleSteps = [
+                { step: 1, status: "Démarrage du cycle...", targetTemp: 20 },
+                { step: 2, status: "Chauffe en cours...", targetTemp: 35 },
+                { step: 3, status: "Montée en température...", targetTemp: 50 },
+                { step: 4, status: "Température atteinte - Arrêt", targetTemp: 60 }
+            ];
+            
+            function updateStep() {
+                if (currentStep < cycleSteps.length) {
+                    const stepData = cycleSteps[currentStep];
+                    
+                    // Mettre à jour l'indicateur actif
+                    indicators.forEach((indicator, index) => {
+                        if (index + 1 === stepData.step) {
+                            indicator.classList.add('active');
+                        } else {
+                            indicator.classList.remove('active');
+                        }
+                    });
+                    
+                    // Animer la température
+                    anime({
+                        targets: { temp: temperature },
+                        temp: stepData.targetTemp,
+                        duration: 2000,
+                        easing: 'easeOutQuart',
+                        update: function(anim) {
+                            const currentTemp = Math.round(anim.animatables[0].target.temp);
+                            tempDisplay.textContent = currentTemp + '°C';
+                            tempBar.style.width = ((currentTemp - 15) / 45 * 100) + '%';
+                        }
+                    });
+                    
+                    statusDisplay.textContent = stepData.status;
+                    
+                    currentStep++;
+                    setTimeout(updateStep, 3000);
+                } else {
+                    // Fin du cycle
+                    statusDisplay.textContent = 'Cycle terminé - Eau prête à l\'emploi';
+                    indicators.forEach(indicator => indicator.classList.remove('active'));
+                    
+                    setTimeout(() => {
+                        currentStep = 0;
+                        temperature = 20;
+                        tempDisplay.textContent = '20°C';
+                        tempBar.style.width = '10%';
+                        statusDisplay.textContent = 'Cycle en attente...';
+                        document.getElementById('cycle-animation').classList.add('hidden');
+                    }, 3000);
+                }
+            }
+            
+            updateStep();
+        }
+        
+        // Animation du circuit hydraulique
+        function animateHydraulicCircuit() {
+            const paths = document.querySelectorAll('.circuit-animation');
+            paths.forEach(path => {
+                anime({
+                    targets: path,
+                    strokeDashoffset: [1000, -1000],
+                    duration: 3000,
+                    easing: 'easeInOutQuad'
+                });
+            });
+        }
+        
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            // Bouton de démarrage du cycle
+            document.getElementById('start-cycle').addEventListener('click', function() {
+                document.getElementById('cycle-animation').classList.remove('hidden');
+                animateCycle();
+                this.disabled = true;
+                this.textContent = 'Cycle en cours...';
+                
+                setTimeout(() => {
+                    this.disabled = false;
+                    this.textContent = 'Démarrer l\'Animation du Cycle';
+                }, 12000);
+            });
+            
+            // Animation des composants au survol
+            document.querySelectorAll('.interactive-schema').forEach(schema => {
+                schema.addEventListener('mouseenter', function() {
+                    anime({
+                        targets: this,
+                        scale: 1.02,
+                        duration: 300,
+                        easing: 'easeOutQuart'
+                    });
+                });
+                
+                schema.addEventListener('mouseleave', function() {
+                    anime({
+                        targets: this,
+                        scale: 1,
+                        duration: 300,
+                        easing: 'easeOutQuart'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

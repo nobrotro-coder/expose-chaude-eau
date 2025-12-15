@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Composants Chauffe-Eau Électrique - Guide Complet</title>
+    <meta name="description" content="Guide complet sur les composants des chauffe-eau électriques : résistance, thermostat, anode, groupe de sécurité et maintenance">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Bibliothèques d'animation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
+        }
+        
+        .component-card {
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .component-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .floating-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #f97316;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-xl font-bold text-gray-800">Chauffe-Eau Pro</h1>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#accueil" class="nav-link text-gray-800 hover:text-orange-600 px-3 py-2 text-sm font-medium">Accueil</a>
+                        <a href="composants.html" class="nav-link text-gray-800 hover:text-orange-600 px-3 py-2 text-sm font-medium">Composants</a>
+                        <a href="fonctionnement.html" class="nav-link text-gray-800 hover:text-orange-600 px-3 py-2 text-sm font-medium">Fonctionnement</a>
+                        <a href="maintenance.html" class="nav-link text-gray-800 hover:text-orange-600 px-3 py-2 text-sm font-medium">Maintenance</a>
+                    </div>
+                </div>
+                
+                <div class="md:hidden">
+                    <button class="mobile-menu-btn text-gray-800 hover:text-orange-600">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="accueil" class="hero-gradient min-h-screen flex items-center pt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="text-white">
+                    <h1 class="hero-title text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                        Composants
+                        <span class="text-orange-300 block">Chauffe-Eau</span>
+                        Électrique
+                    </h1>
+                    <p class="hero-subtitle text-xl lg:text-2xl mb-8 text-blue-100 leading-relaxed">
+                        Guide complet pour comprendre, entretenir et optimiser votre chauffe-eau électrique
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="composants.html" class="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 text-center">
+                            Explorer les Composants
+                        </a>
+                        <a href="fonctionnement.html" class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 border border-white border-opacity-30 text-center">
+                            Voir le Fonctionnement
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="hero-image floating-animation">
+                    <img src="resources/hero-chauffe-eau.png" alt="Chauffe-Eau Électrique" 
+                         class="w-full h-auto max-w-lg mx-auto drop-shadow-2xl">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vue d'ensemble -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Vue d'ensemble</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Découvrez les principaux composants d'un chauffe-eau électrique et leur rôle essentiel
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <div class="bg-blue-50 p-6 rounded-xl">
+                        <h3 class="text-2xl font-semibold text-blue-800 mb-4">Principe de Stratification</h3>
+                        <p class="text-blue-700 mb-4">
+                            Le chauffe-eau fonctionne par stratification : l'eau chaude, plus légère, monte en haut 
+                            de la cuve tandis que l'eau froide reste au fond.
+                        </p>
+                        <ul class="text-blue-600 space-y-2">
+                            <li class="flex items-center">
+                                <span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
+                                Eau chaude : 55-65°C en haut
+                            </li>
+                            <li class="flex items-center">
+                                <span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
+                                Eau froide : 15-20°C en bas
+                            </li>
+                            <li class="flex items-center">
+                                <span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
+                                Pas de mélange des couches
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-orange-50 p-6 rounded-xl">
+                        <h3 class="text-2xl font-semibold text-orange-800 mb-4">Sécurité Intégrée</h3>
+                        <p class="text-orange-700 mb-4">
+                            Plusieurs dispositifs assurent la sécurité et la longévité de votre appareil.
+                        </p>
+                        <ul class="text-orange-600 space-y-2">
+                            <li class="flex items-center">
+                                <span class="w-2 h-2 bg-orange-500 rounded-full mr-3"></span>
+                                Groupe de sécurité (pression)
+                            </li>
+                            <li class="flex items-center">
+                                <span class="w-2 h-2 bg-orange-500 rounded-full mr-3"></span>
+                                Thermostat (température)
+                            </li>
+                            <li class="flex items-center">
+                                <span class="w-2 h-2 bg-orange-500 rounded-full mr-3"></span>
+                                Anode anti-corrosion
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <img src="resources/stratification-schema.png" alt="Schéma Stratification" 
+                         class="w-full h-auto max-w-md mx-auto rounded-xl shadow-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Composants Principaux -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Composants Principaux</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Cliquez sur chaque composant pour en savoir plus sur son rôle et son fonctionnement
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Résistance -->
+                <div class="component-card bg-white rounded-xl shadow-lg p-6 cursor-pointer animate-on-scroll" 
+                     data-component="resistance">
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <img src="resources/resistance-steatite.png" alt="Résistance" 
+                                 class="w-12 h-12 object-contain">
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Résistance Électrique</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            Transforme l'énergie électrique en chaleur par effet Joule
+                        </p>
+                        <div class="bg-blue-50 p-3 rounded-lg">
+                            <p class="text-blue-700 text-sm font-medium">1200-3000W</p>
+                            <p class="text-blue-600 text-xs">Puissance variable</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Thermostat -->
+                <div class="component-card bg-white rounded-xl shadow-lg p-6 cursor-pointer animate-on-scroll" 
+                     data-component="thermostat">
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <img src="resources/thermostat-moderne.png" alt="Thermostat" 
+                                 class="w-12 h-12 object-contain">
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Thermostat</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            Régule la température et coupe la résistance automatiquement
+                        </p>
+                        <div class="bg-orange-50 p-3 rounded-lg">
+                            <p class="text-orange-700 text-sm font-medium">50-65°C</p>
+                            <p class="text-orange-600 text-xs">Plage de réglage</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Anode -->
+                <div class="component-card bg-white rounded-xl shadow-lg p-6 cursor-pointer animate-on-scroll" 
+                     data-component="anode">
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <img src="resources/anode-magnesium.png" alt="Anode" 
+                                 class="w-12 h-12 object-contain">
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Anode Magnésium</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            Protège la cuve contre la corrosion par sacrifice électrochimique
+                        </p>
+                        <div class="bg-red-50 p-3 rounded-lg">
+                            <p class="text-red-700 text-sm font-medium">2-5 ans</p>
+                            <p class="text-red-600 text-xs">Durée de vie</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Groupe de sécurité -->
+                <div class="component-card bg-white rounded-xl shadow-lg p-6 cursor-pointer animate-on-scroll" 
+                     data-component="groupe">
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <img src="resources/groupe-securite.png" alt="Groupe de sécurité" 
+                                 class="w-12 h-12 object-contain">
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">Groupe de Sécurité</h3>
+                        <p class="text-gray-600 text-sm mb-4">
+                            Régule la pression et assure la sécurité de l'installation
+                        </p>
+                        <div class="bg-green-50 p-3 rounded-lg">
+                            <p class="text-green-700 text-sm font-medium">7-10 bars</p>
+                            <p class="text-green-600 text-xs">Pression de service</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Outils Pratiques -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Outils Pratiques</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Utilitaires pour calculer, tester et diagnostiquer votre chauffe-eau
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Calculateur de Puissance -->
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-blue-800 mb-2">Calculateur de Puissance</h3>
+                        <p class="text-blue-600 text-sm">
+                            Calculez la puissance nécessaire pour votre chauffe-eau
+                        </p>
+                    </div>
+                    
+                    <form id="power-calculator" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-blue-700 mb-1">Volume (L)</label>
+                            <input type="number" id="volume" class="w-full px-3 py-2 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="150" min="50" max="500">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-blue-700 mb-1">Température départ (°C)</label>
+                            <input type="number" id="temp-start" class="w-full px-3 py-2 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="15" min="5" max="30">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-blue-700 mb-1">Température arrivée (°C)</label>
+                            <input type="number" id="temp-end" class="w-full px-3 py-2 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="60" min="40" max="70">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-blue-700 mb-1">Temps de chauffe (h)</label>
+                            <input type="number" id="heating-time" class="w-full px-3 py-2 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="8" min="1" max="24" step="0.5">
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-medium transition-colors">
+                            Calculer
+                        </button>
+                    </form>
+                    
+                    <div id="power-result"></div>
+                </div>
+                
+                <!-- Calculateur de Capacité -->
+                <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-6">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-orange-800 mb-2">Calculateur de Capacité</h3>
+                        <p class="text-orange-600 text-sm">
+                            Déterminez la taille idéale pour votre chauffe-eau
+                        </p>
+                    </div>
+                    
+                    <form id="capacity-calculator" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-orange-700 mb-1">Nombre de personnes</label>
+                            <input type="number" id="persons" class="w-full px-3 py-2 border border-orange-300 rounded-lg focus:ring-2 focus:ring-orange-500" placeholder="4" min="1" max="10">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-orange-700 mb-1">Type d'utilisation</label>
+                            <select id="usage-type" class="w-full px-3 py-2 border border-orange-300 rounded-lg focus:ring-2 focus:ring-orange-500">
+                                <option value="">Sélectionner...</option>
+                                <option value="economic">Économique (30L/personne)</option>
+                                <option value="normal">Normale (50L/personne)</option>
+                                <option value="intensive">Intensive (70L/personne)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-orange-700 mb-1">Température souhaitée (°C)</label>
+                            <input type="number" id="desired-temp" class="w-full px-3 py-2 border border-orange-300 rounded-lg focus:ring-2 focus:ring-orange-500" placeholder="55" min="40" max="70">
+                        </div>
+                        <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white py-2 px-4 rounded-lg font-medium transition-colors">
+                            Calculer
+                        </button>
+                    </form>
+                    
+                    <div id="capacity-result"></div>
+                </div>
+                
+                <!-- Testeur d'Anode -->
+                <div class="bg-gradient-to-br from-red-50 to-red-100 rounded-xl p-6">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-red-800 mb-2">Testeur d'Anode</h3>
+                        <p class="text-red-600 text-sm">
+                            Évaluez l'état de votre anode de magnésium
+                        </p>
+                    </div>
+                    
+                    <form id="anode-tester" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-red-700 mb-1">Âge de l'anode (ans)</label>
+                            <input type="number" id="anode-age" class="w-full px-3 py-2 border border-red-300 rounded-lg focus:ring-2 focus:ring-red-500" placeholder="3" min="0" max="10" step="0.5">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-red-700 mb-1">Dureté de l'eau</label>
+                            <select id="water-hardness" class="w-full px-3 py-2 border border-red-300 rounded-lg focus:ring-2 focus:ring-red-500">
+                                <option value="">Sélectionner...</option>
+                                <option value="soft">Eau douce</option>
+                                <option value="medium">Eau moyennement dure</option>
+                                <option value="hard">Eau dure</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" id="visible-corrosion" class="w-4 h-4 text-red-600 border-red-300 rounded focus:ring-red-500">
+                            <label for="visible-corrosion" class="ml-2 text-sm text-red-700">Corrosion visible</label>
+                        </div>
+                        <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg font-medium transition-colors">
+                            Tester
+                        </button>
+                    </form>
+                    
+                    <div id="anode-result"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gray-800 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold mb-6">Besoin d'aide pour votre chauffe-eau ?</h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                Consultez nos guides détaillés pour le diagnostic, l'entretien et la réparation de votre chauffe-eau électrique
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="maintenance.html" class="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105">
+                    Guide de Maintenance
+                </a>
+                <a href="fonctionnement.html" class="bg-gray-700 hover:bg-gray-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300">
+                    Voir les Schémas
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h3 class="text-2xl font-bold mb-4">Chauffe-Eau Pro</h3>
+                <p class="text-gray-400 mb-6 max-w-2xl mx-auto">
+                    Guide professionnel pour la compréhension et la maintenance des chauffe-eau électriques
+                </p>
+                <div class="border-t border-gray-700 pt-6">
+                    <p class="text-gray-500 text-sm">
+                        © 2025 Chauffe-Eau Pro. Tous droits réservés. Guide éducatif pour professionnels et particuliers.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+    
+    <script>
+        // Animation supplémentaire pour les composants
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation de pulse pour les indicateurs
+            const pulseElements = document.querySelectorAll('.pulse-animation');
+            pulseElements.forEach(el => {
+                setInterval(() => {
+                    anime({
+                        targets: el,
+                        scale: [1, 1.1, 1],
+                        duration: 1000,
+                        easing: 'easeInOutQuad'
+                    });
+                }, 2000);
+            });
+            
+            // Parallax effect pour l'hero
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const hero = document.querySelector('.hero-gradient');
+                if (hero) {
+                    hero.style.transform = `translateY(${scrolled * 0.5}px)`;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

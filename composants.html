@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Composants Détaillés - Chauffe-Eau Électrique</title>
+    <meta name="description" content="Détail complet des composants du chauffe-eau électrique : résistance, thermostat, anode, groupe de sécurité">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Bibliothèques d'animation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+        
+        .component-detail {
+            transition: all 0.3s ease;
+        }
+        
+        .component-detail:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #f97316;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .tech-spec {
+            border-left: 4px solid #3b82f6;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+        }
+        
+        .maintenance-tip {
+            border-left: 4px solid #f59e0b;
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+        }
+        
+        .warning-box {
+            border-left: 4px solid #ef4444;
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <a href="index.html" class="text-xl font-bold text-gray-800">Chauffe-Eau Pro</a>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="nav-link text-gray-800 hover:text-orange-600 px-3 py-2 text-sm font-medium">Accueil</a>
+                        <a href="composants.html" class="nav-link text-orange-600 px-3 py-2 text-sm font-medium border-b-2 border-orange-600">Composants</a>
+                        <a href="fonctionnement.html" class="nav-link text-gray-800 hover:text-orange-600 px-3 py-2 text-sm font-medium">Fonctionnement</a>
+                        <a href="maintenance.html" class="nav-link text-gray-800 hover:text-orange-600 px-3 py-2 text-sm font-medium">Maintenance</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="bg-gradient-to-r from-blue-600 to-blue-800 text-white pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-5xl font-bold mb-6">Composants Détaillés</h1>
+                <p class="text-xl text-blue-100 max-w-3xl mx-auto">
+                    Comprendre en détail chaque composant de votre chauffe-eau électrique pour une meilleure maintenance
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Résistance Électrique -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                            <img src="resources/resistance-steatite.png" alt="Résistance" class="w-8 h-8 object-contain">
+                        </div>
+                        <h2 class="text-3xl font-bold text-gray-800">Résistance Électrique</h2>
+                    </div>
+                    
+                    <p class="text-lg text-gray-600 mb-6">
+                        La résistance est le cœur du chauffe-eau. C'est elle qui transforme l'énergie électrique 
+                        en chaleur par effet Joule pour chauffer l'eau de votre cuve.
+                    </p>
+                    
+                    <div class="tech-spec p-6 rounded-xl mb-6">
+                        <h3 class="text-xl font-semibold text-blue-800 mb-4">Caractéristiques Techniques</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-medium text-blue-700 mb-2">Types de résistance</h4>
+                                <ul class="text-sm text-blue-600 space-y-1">
+                                    <li><strong>Blindée:</strong> Contact direct avec l'eau</li>
+                                    <li><strong>Stéatite:</strong> Protégée par fourreau</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-blue-700 mb-2">Puissances courantes</h4>
+                                <ul class="text-sm text-blue-600 space-y-1">
+                                    <li>1200W - Petits volumes</li>
+                                    <li>1800W - Usage standard</li>
+                                    <li>2400W - Grandes capacités</li>
+                                    <li>3000W - Chauffe rapide</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="maintenance-tip p-6 rounded-xl mb-6">
+                        <h3 class="text-xl font-semibold text-amber-800 mb-4">Entretien et Maintenance</h3>
+                        <ul class="text-amber-700 space-y-2">
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-amber-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Vérifier l'état tous les 2-3 ans</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-amber-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Remplacer si entartrée ou corrodoée</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-amber-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Détartrage régulier en zone calcaire</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-amber-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Contrôler la continuité électrique</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="warning-box p-6 rounded-xl">
+                        <h3 class="text-xl font-semibold text-red-800 mb-4">Signes de Défaillance</h3>
+                        <ul class="text-red-700 space-y-2">
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Eau non chauffée ou chauffe lente</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Disjoncteur qui saute régulièrement</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Bruits anormaux (grésillement)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Fuite autour de la résistance</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <img src="resources/resistance-steatite.png" alt="Résistance Stéatite" 
+                         class="w-full h-auto max-w-md mx-auto rounded-xl shadow-lg mb-6">
+                    
+                    <div class="bg-gray-50 p-6 rounded-xl">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Fonctionnement</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-600">Effet Joule</span>
+                                <div class="w-24 h-2 bg-blue-200 rounded-full">
+                                    <div class="w-20 h-2 bg-blue-600 rounded-full"></div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-600">Conversion énergie</span>
+                                <div class="w-24 h-2 bg-blue-200 rounded-full">
+                                    <div class="w-22 h-2 bg-blue-600 rounded-full"></div>
+                                </div>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-gray-600">Chauffe de l'eau</span>
+                                <div class="w-24 h-2 bg-blue-200 rounded-full">
+                                    <div class="w-24 h-2 bg-blue-600 rounded-full"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Thermostat -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="order-2 lg:order-1 text-center">
+                    <img src="resources/thermostat-moderne.png" alt="Thermostat Électronique" 
+                         class="w-full h-auto max-w-md mx-auto rounded-xl shadow-lg mb-6">
+                    
+                    <div class="bg-white p-6 rounded-xl">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Types de Thermostats</h3>
+                        <div class="grid grid-cols-3 gap-4 text-sm">
+                            <div class="text-center">
+                                <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <span class="text-orange-600 font-bold">C</span>
+                                </div>
+                                <p class="text-gray-700">Canne</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <span class="text-orange-600 font-bold">B</span>
+                                </div>
+                                <p class="text-gray-700">Bulbe</p>
+                            </div>
+                            <div class="text-center">
+                                <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <span class="text-orange-600 font-bold">E</span>
+                                </div>
+                                <p class="text-gray-700">Électronique</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="order-1 lg:order-2">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
+                            <img src="resources/thermostat-moderne.png" alt="Thermostat" class="w-8 h-8 object-contain">
+                        </div>
+                        <h2 class="text-3xl font-bold text-gray-800">Thermostat</h2>
+                    </div>
+                    
+                    <p class="text-lg text-gray-600 mb-6">
+                        Le thermostat est le cerveau du chauffe-eau. Il mesure en permanence la température 
+                        de l'eau et régule le fonctionnement de la résistance.
+                    </p>
+                    
+                    <div class="tech-spec p-6 rounded-xl mb-6">
+                        <h3 class="text-xl font-semibold text-blue-800 mb-4">Fonctionnement</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-bold mr-4">1</div>
+                                <div>
+                                    <h4 class="font-medium text-blue-700">Mesure de température</h4>
+                                    <p class="text-sm text-blue-600">Capteur placé dans la cuve</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-bold mr-4">2</div>
+                                <div>
+                                    <h4 class="font-medium text-blue-700">Comparaison avec la consigne</h4>
+                                    <p class="text-sm text-blue-600">Vérification du seuil (55-65°C)</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white text-sm font-bold mr-4">3</div>
+                                <div>
+                                    <h4 class="font-medium text-blue-700">Commande de la résistance</h4>
+                                    <p class="text-sm text-blue-600">Marche/arrêt automatique</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="maintenance-tip p-6 rounded-xl mb-6">
+                        <h3 class="text-xl font-semibold text-amber-800 mb-4">Réglages et Sécurité</h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <h4 class="font-medium text-amber-700 mb-2">Température recommandée</h4>
+                                <ul class="text-sm text-amber-600 space-y-1">
+                                    <li>• 55°C minimum (anti-légionellose)</li>
+                                    <li>• 60°C idéal (économie + sécurité)</li>
+                                    <li>• 65°C maximum (risque de brûlure)</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-amber-700 mb-2">Sécurité intégrée</h4>
+                                <ul class="text-sm text-amber-600 space-y-1">
+                                    <li>• Coupe automatique en cas de surchauffe</li>
+                                    <li>• Redémarrage automatique</li>
+                                    <li>• Diagnostic de panne intégré</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="warning-box p-6 rounded-xl">
+                        <h3 class="text-xl font-semibold text-red-800 mb-4">Problèmes Courants</h3>
+                        <ul class="text-red-700 space-y-2">
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Thermostat déréglé (température incorrecte)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Capteur défectueux (mesure erronée)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Contacts oxydés (mauvaise connexion)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Calage du mécanisme (ne coupe plus)</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Anode de Magnésium -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mr-4">
+                            <img src="resources/anode-magnesium.png" alt="Anode" class="w-8 h-8 object-contain">
+                        </div>
+                        <h2 class="text-3xl font-bold text-gray-800">Anode de Magnésium</h2>
+                    </div>
+                    
+                    <p class="text-lg text-gray-600 mb-6">
+                        L'anode est la pièce sacrificielle qui protège votre cuve contre la corrosion. 
+                        Elle s'use progressivement pour préserver l'intégrité de votre chauffe-eau.
+                    </p>
+                    
+                    <div class="tech-spec p-6 rounded-xl mb-6">
+                        <h3 class="text-xl font-semibold text-blue-800 mb-4">Principe de Protection</h3>
+                        <div class="space-y-4">
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h4 class="font-medium text-blue-700 mb-2">Sacrifice électrochimique</h4>
+                                <p class="text-sm text-blue-600">
+                                    Le magnésium est plus réactif que l'acier de la cuve. 
+                                    Il attire les ions corrosifs et se corrode à la place de la cuve.
+                                </p>
+                            </div>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div class="bg-green-50 p-3 rounded-lg">
+                                    <h5 class="font-medium text-green-700">Anode active</h5>
+                                    <p class="text-sm text-green-600">Protège efficacement la cuve</p>
+                                </div>
+                                <div class="bg-red-50 p-3 rounded-lg">
+                                    <h5 class="font-medium text-red-700">Anode usée</h5>
+                                    <p class="text-sm text-red-600">Cuve non protégée, risque de corrosion</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="maintenance-tip p-6 rounded-xl mb-6">
+                        <h3 class="text-xl font-semibold text-amber-800 mb-4">Contrôle et Remplacement</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-amber-700">Fréquence de contrôle</span>
+                                <span class="bg-amber-200 text-amber-800 px-3 py-1 rounded-full text-sm font-medium">Tous les 2 ans</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-amber-700">Durée de vie moyenne</span>
+                                <span class="bg-amber-200 text-amber-800 px-3 py-1 rounded-full text-sm font-medium">2 à 5 ans</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-amber-700">Seuil de remplacement</span>
+                                <span class="bg-amber-200 text-amber-800 px-3 py-1 rounded-full text-sm font-medium">Usure > 50%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="warning-box p-6 rounded-xl">
+                        <h3 class="text-xl font-semibold text-red-800 mb-4">Conséquences d'une Anode Usée</h3>
+                        <ul class="text-red-700 space-y-2">
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Corrosion rapide de la cuve en acier</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Perte de calories et efficacité réduite</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Risque de perforation de la cuve</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Remplacement complet nécessaire</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="text-center">
+                    <img src="resources/anode-magnesium.png" alt="Anode Magnésium" 
+                         class="w-full h-auto max-w-md mx-auto rounded-xl shadow-lg mb-6">
+                    
+                    <div class="bg-gray-50 p-6 rounded-xl">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Évolution de l'Anode</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <div class="w-16 h-4 bg-green-500 rounded-full mr-4"></div>
+                                <div class="text-left">
+                                    <p class="text-sm font-medium text-gray-700">Neuve (100%)</p>
+                                    <p class="text-xs text-gray-500">Protection maximale</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-12 h-4 bg-yellow-500 rounded-full mr-4"></div>
+                                <div class="text-left">
+                                    <p class="text-sm font-medium text-gray-700">Usée (50%)</p>
+                                    <p class="text-xs text-gray-500">Remplacement recommandé</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-6 h-4 bg-red-500 rounded-full mr-4"></div>
+                                <div class="text-left">
+                                    <p class="text-sm font-medium text-gray-700">Critique (10%)</p>
+                                    <p class="text-xs text-gray-500">Remplacement urgent</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Groupe de Sécurité -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="order-2 lg:order-1 text-center">
+                    <img src="resources/groupe-securite.png" alt="Groupe de Sécurité" 
+                         class="w-full h-auto max-w-md mx-auto rounded-xl shadow-lg mb-6">
+                    
+                    <div class="bg-white p-6 rounded-xl">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Fonctions de Sécurité</h3>
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div class="text-center p-3 bg-green-50 rounded-lg">
+                                <div class="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <span class="text-white font-bold">P</span>
+                                </div>
+                                <p class="text-green-700">Régulation pression</p>
+                            </div>
+                            <div class="text-center p-3 bg-blue-50 rounded-lg">
+                                <div class="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <span class="text-white font-bold">V</span>
+                                </div>
+                                <p class="text-blue-700">Vidange</p>
+                            </div>
+                            <div class="text-center p-3 bg-orange-50 rounded-lg">
+                                <div class="w-8 h-8 bg-orange-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <span class="text-white font-bold">S</span>
+                                </div>
+                                <p class="text-orange-700">Soupape sécurité</p>
+                            </div>
+                            <div class="text-center p-3 bg-purple-50 rounded-lg">
+                                <div class="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-2">
+                                    <span class="text-white font-bold">R</span>
+                                </div>
+                                <p class="text-purple-700">Raccordement</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="order-1 lg:order-2">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                            <img src="resources/groupe-securite.png" alt="Groupe de sécurité" class="w-8 h-8 object-contain">
+                        </div>
+                        <h2 class="text-3xl font-bold text-gray-800">Groupe de Sécurité</h2>
+                    </div>
+                    
+                    <p class="text-lg text-gray-600 mb-6">
+                        Le groupe de sécurité est un dispositif multifonction essentiel à la sécurité 
+                        de votre installation. Il régule la pression et permet la vidange de l'appareil.
+                    </p>
+                    
+                    <div class="tech-spec p-6 rounded-xl mb-6">
+                        <h3 class="text-xl font-semibold text-blue-800 mb-4">Fonctions Principales</h3>
+                        <div class="space-y-4">
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <h4 class="font-medium text-blue-700 mb-2">Soupape de sécurité</h4>
+                                <p class="text-sm text-blue-600">
+                                    S'ouvre automatiquement si la pression dépasse 7-10 bars 
+                                    pour protéger la cuve contre la surpression.
+                                </p>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg">
+                                <h4 class="font-medium text-green-700 mb-2">Évacuation d'expansion</h4>
+                                <p class="text-sm text-green-600">
+                                    Évacue l'eau lors de la dilatation thermique 
+                                    pendant la phase de chauffe.
+                                </p>
+                            </div>
+                            <div class="bg-orange-50 p-4 rounded-lg">
+                                <h4 class="font-medium text-orange-700 mb-2">Vidange manuelle</h4>
+                                <p class="text-sm text-orange-600">
+                                    Permet de vidanger complètement le chauffe-eau 
+                                    pour l'entretien ou le transport.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="maintenance-tip p-6 rounded-xl mb-6">
+                        <h3 class="text-xl font-semibold text-amber-800 mb-4">Entretien et Vérification</h3>
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-amber-700">Test de la soupape</span>
+                                <span class="bg-amber-200 text-amber-800 px-3 py-1 rounded-full text-sm font-medium">Trimestriel</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-amber-700">Contrôle du filet</span>
+                                <span class="bg-amber-200 text-amber-800 px-3 py-1 rounded-full text-sm font-medium">Annuel</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-amber-700">Remplacement complet</span>
+                                <span class="bg-amber-200 text-amber-800 px-3 py-1 rounded-full text-sm font-medium">5-10 ans</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="warning-box p-6 rounded-xl">
+                        <h3 class="text-xl font-semibold text-red-800 mb-4">Dysfonctionnements</h3>
+                        <ul class="text-red-700 space-y-2">
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Soupape qui fuit constamment (joint usé)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Soupape bloquée (entartrage)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Fuites aux raccords (fuite d'étanchéité)</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-red-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Manomètre défectueux (lecture erronée)</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Autres Composants -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Autres Composants Essentiels</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Découvrez les autres éléments qui composent votre chauffe-eau électrique
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Cuve -->
+                <div class="component-detail bg-gray-50 rounded-xl p-6">
+                    <div class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3 text-center">Cuve</h3>
+                    <p class="text-gray-600 text-sm mb-4">
+                        Réservoir en acier émaillé qui contient l'eau. Isolée thermiquement pour limiter les pertes de chaleur.
+                    </p>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Matériau:</span>
+                            <span class="text-gray-800 font-medium">Acier émaillé</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Isolation:</span>
+                            <span class="text-gray-800 font-medium">Mousse polyuréthane</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Capacité:</span>
+                            <span class="text-gray-800 font-medium">50-300L</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Vase d'expansion -->
+                <div class="component-detail bg-blue-50 rounded-xl p-6">
+                    <div class="w-16 h-16 bg-blue-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-blue-800 mb-3 text-center">Vase d'Expansion</h3>
+                    <p class="text-blue-700 text-sm mb-4">
+                        Compense la dilatation thermique de l'eau. Protège l'installation contre les surpressions.
+                    </p>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-blue-600">Volume:</span>
+                            <span class="text-blue-800 font-medium">8-18L</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-blue-600">Pression:</span>
+                            <span class="text-blue-800 font-medium">3-4 bars</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-blue-600">Membrane:</span>
+                            <span class="text-blue-800 font-medium">Butyle/EPT</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Isolation thermique -->
+                <div class="component-detail bg-orange-50 rounded-xl p-6">
+                    <div class="w-16 h-16 bg-orange-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-orange-800 mb-3 text-center">Isolation Thermique</h3>
+                    <p class="text-orange-700 text-sm mb-4">
+                        Mousse polyuréthane injectée autour de la cuve. Limite les pertes thermiques et réduit la consommation.
+                    </p>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-orange-600">Épaisseur:</span>
+                            <span class="text-orange-800 font-medium">30-50mm</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-orange-600">λ (lambda):</span>
+                            <span class="text-orange-800 font-medium">0.022 W/mK</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-orange-600">Pertes:</span>
+                            <span class="text-orange-800 font-medium">&lt; 1°C/h</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gray-800 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold mb-6">Besoin de plus d'informations ?</h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                Découvrez comment fonctionnent tous ces composants ensemble et apprenez à les maintenir correctement
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="fonctionnement.html" class="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105">
+                    Voir le Fonctionnement
+                </a>
+                <a href="maintenance.html" class="bg-gray-700 hover:bg-gray-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300">
+                    Guide de Maintenance
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h3 class="text-2xl font-bold mb-4">Chauffe-Eau Pro</h3>
+                <p class="text-gray-400 mb-6 max-w-2xl mx-auto">
+                    Guide professionnel pour la compréhension et la maintenance des chauffe-eau électriques
+                </p>
+                <div class="border-t border-gray-700 pt-6">
+                    <p class="text-gray-500 text-sm">
+                        © 2025 Chauffe-Eau Pro. Tous droits réservés. Guide éducatif pour professionnels et particuliers.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+    
+    <script>
+        // Animation pour les composants détaillés
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animation d'apparition des sections
+            const sections = document.querySelectorAll('section');
+            sections.forEach((section, index) => {
+                anime({
+                    targets: section,
+                    opacity: [0, 1],
+                    translateY: [50, 0],
+                    delay: index * 200,
+                    duration: 800,
+                    easing: 'easeOutQuart'
+                });
+            });
+            
+            // Animation des composants détaillés au survol
+            document.querySelectorAll('.component-detail').forEach(card => {
+                card.addEventListener('mouseenter', (e) => {
+                    anime({
+                        targets: e.currentTarget,
+                        scale: 1.05,
+                        rotateY: 5,
+                        duration: 300,
+                        easing: 'easeOutQuart'
+                    });
+                });
+                
+                card.addEventListener('mouseleave', (e) => {
+                    anime({
+                        targets: e.currentTarget,
+                        scale: 1,
+                        rotateY: 0,
+                        duration: 300,
+                        easing: 'easeOutQuart'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

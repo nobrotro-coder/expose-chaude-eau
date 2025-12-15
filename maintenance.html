@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance - Chauffe-Eau Électrique</title>
+    <meta name="description" content="Guide complet de maintenance pour chauffe-eau électrique : diagnostic, entretien, dépannage et outils">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Bibliothèques d'animation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #f97316;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .diagnostic-card {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .diagnostic-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .tool-card {
+            transition: all 0.3s ease;
+        }
+        
+        .tool-card:hover {
+            transform: scale(1.02);
+        }
+        
+        .maintenance-step {
+            border-left: 4px solid #3b82f6;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+        }
+        
+        .warning-box {
+            border-left: 4px solid #ef4444;
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+        }
+        
+        .success-box {
+            border-left: 4px solid #10b981;
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+        }
+        
+        .progress-bar {
+            transition: width 0.5s ease;
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <a href="index.html" class="text-xl font-bold text-gray-800">Chauffe-Eau Pro</a>
+                    </div>
+                </div>
+                
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="index.html" class="nav-link text-gray-800 hover:text-orange-600 px-3 py-2 text-sm font-medium">Accueil</a>
+                        <a href="composants.html" class="nav-link text-gray-800 hover:text-orange-600 px-3 py-2 text-sm font-medium">Composants</a>
+                        <a href="fonctionnement.html" class="nav-link text-gray-800 hover:text-orange-600 px-3 py-2 text-sm font-medium">Fonctionnement</a>
+                        <a href="maintenance.html" class="nav-link text-orange-600 px-3 py-2 text-sm font-medium border-b-2 border-orange-600">Maintenance</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <section class="bg-gradient-to-r from-blue-600 to-blue-800 text-white pt-24 pb-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-5xl font-bold mb-6">Maintenance & Diagnostic</h1>
+                <p class="text-xl text-blue-100 max-w-3xl mx-auto">
+                    Guide complet pour l'entretien, le diagnostic et le dépannage de votre chauffe-eau électrique
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Outils de Diagnostic -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Outils de Diagnostic</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Testez et diagnostiquez l'état de votre chauffe-eau avec nos outils interactifs
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Test Résistance -->
+                <div class="diagnostic-card bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6" data-test="resistance">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-blue-800 mb-2">Test Résistance</h3>
+                        <p class="text-sm text-blue-700 mb-4">
+                            Vérifiez la continuité et la résistance électrique de votre résistance
+                        </p>
+                        <button class="diagnostic-btn bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                            Lancer le Test
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Test Thermostat -->
+                <div class="diagnostic-card bg-gradient-to-br from-orange-50 to-orange-100 rounded-xl p-6" data-test="thermostat">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-orange-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-orange-800 mb-2">Test Thermostat</h3>
+                        <p class="text-sm text-orange-700 mb-4">
+                            Contrôlez le bon fonctionnement de la régulation de température
+                        </p>
+                        <button class="diagnostic-btn bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                            Lancer le Test
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Test Anode -->
+                <div class="diagnostic-card bg-gradient-to-br from-red-50 to-red-100 rounded-xl p-6" data-test="anode">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-red-800 mb-2">Test Anode</h3>
+                        <p class="text-sm text-red-700 mb-4">
+                            Évaluez l'état de corrosion et la durée de vie de l'anode
+                        </p>
+                        <button class="diagnostic-btn bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                            Lancer le Test
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Test Groupe de Sécurité -->
+                <div class="diagnostic-card bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6" data-test="groupe">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-green-800 mb-2">Test Groupe Sécurité</h3>
+                        <p class="text-sm text-green-700 mb-4">
+                            Vérifiez le bon fonctionnement de la soupape de sécurité
+                        </p>
+                        <button class="diagnostic-btn bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                            Lancer le Test
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Maintenance Préventive -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Maintenance Préventive</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Calendrier d'entretien pour prolonger la durée de vie de votre chauffe-eau
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Calendrier de Maintenance -->
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-6">Calendrier d'Entretien</h3>
+                    
+                    <div class="space-y-6">
+                        <div class="maintenance-step p-4 rounded-lg">
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="font-semibold text-blue-800">Vérification visuelle</h4>
+                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Mensuel</span>
+                            </div>
+                            <ul class="text-sm text-blue-700 space-y-1">
+                                <li>• Inspecter les raccords pour détecter des fuites</li>
+                                <li>• Vérifier l'état du groupe de sécurité</li>
+                                <li>• Contrôler l'affichage du thermostat</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="maintenance-step p-4 rounded-lg">
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="font-semibold text-blue-800">Test soupape de sécurité</h4>
+                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Trimestriel</span>
+                            </div>
+                            <ul class="text-sm text-blue-700 space-y-1">
+                                <li>• Soulever la tige pendant 30 secondes</li>
+                                <li>• Vérifier que l'eau s'écoule correctement</li>
+                                <li>• S'assurer que la soupape se referme bien</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="maintenance-step p-4 rounded-lg">
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="font-semibold text-blue-800">Contrôle anode</h4>
+                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Tous les 2 ans</span>
+                            </div>
+                            <ul class="text-sm text-blue-700 space-y-1">
+                                <li>• Dévisser l'anode pour inspection</li>
+                                <li>• Mesurer l'épaisseur restante</li>
+                                <li>• Remplacer si usure > 50%</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="maintenance-step p-4 rounded-lg">
+                            <div class="flex items-center justify-between mb-2">
+                                <h4 class="font-semibold text-blue-800">Détartrage complet</h4>
+                                <span class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">Tous les 3-5 ans</span>
+                            </div>
+                            <ul class="text-sm text-blue-700 space-y-1">
+                                <li>• Vidanger complètement la cuve</li>
+                                <li>• Nettoyer les parois internes</li>
+                                <li>• Contrôler et remplacer la résistance si nécessaire</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Check-list de Maintenance -->
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-6">Check-list Interactive</h3>
+                    
+                    <div class="space-y-4">
+                        <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                            <input type="checkbox" id="check1" class="w-5 h-5 text-blue-600 rounded mr-4">
+                            <label for="check1" class="text-gray-700">Aucune fuite visible aux raccords</label>
+                        </div>
+                        
+                        <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                            <input type="checkbox" id="check2" class="w-5 h-5 text-blue-600 rounded mr-4">
+                            <label for="check2" class="text-gray-700">Groupe de sécurité fonctionne correctement</label>
+                        </div>
+                        
+                        <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                            <input type="checkbox" id="check3" class="w-5 h-5 text-blue-600 rounded mr-4">
+                            <label for="check3" class="text-gray-700">Température affichée normale (55-65°C)</label>
+                        </div>
+                        
+                        <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                            <input type="checkbox" id="check4" class="w-5 h-5 text-blue-600 rounded mr-4">
+                            <label for="check4" class="text-gray-700">Pas de bruits anormaux</label>
+                        </div>
+                        
+                        <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                            <input type="checkbox" id="check5" class="w-5 h-5 text-blue-600 rounded mr-4">
+                            <label for="check5" class="text-gray-700">Disjoncteur ne saute pas</label>
+                        </div>
+                        
+                        <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                            <input type="checkbox" id="check6" class="w-5 h-5 text-blue-600 rounded mr-4">
+                            <label for="check6" class="text-gray-700">Eau chaude disponible en quantité normale</label>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-gray-700 font-medium">Progression de la vérification</span>
+                            <span id="progress-text" class="text-blue-600 font-bold">0%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-3">
+                            <div id="progress-bar" class="progress-bar bg-blue-600 h-3 rounded-full" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    
+                    <div id="check-result" class="mt-4 hidden">
+                        <div class="success-box p-4 rounded-lg">
+                            <h4 class="font-semibold text-green-800 mb-2">✅ Vérification complète</h4>
+                            <p class="text-green-700 text-sm" id="result-message"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dépannage -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Guide de Dépannage</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Solutions aux problèmes courants rencontrés avec les chauffe-eau électriques
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-8">
+                <!-- Problèmes Courants -->
+                <div class="space-y-6">
+                    <div class="bg-red-50 p-6 rounded-xl">
+                        <h3 class="text-xl font-semibold text-red-800 mb-4 flex items-center">
+                            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                            </svg>
+                            Problème : Pas d'eau chaude
+                        </h3>
+                        <div class="space-y-3">
+                            <div>
+                                <h4 class="font-medium text-red-700 mb-1">Causes possibles :</h4>
+                                <ul class="text-sm text-red-600 space-y-1">
+                                    <li>• Résistance hors service</li>
+                                    <li>• Thermostat déréglé ou défectueux</li>
+                                    <li>• Disjoncteur sauté</li>
+                                    <li>• Problème d'alimentation électrique</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-red-700 mb-1">Solutions :</h4>
+                                <ul class="text-sm text-red-600 space-y-1">
+                                    <li>• Vérifier le disjoncteur et le remettre en marche</li>
+                                    <li>• Tester la résistance avec un multimètre</li>
+                                    <li>• Contrôler le thermostat (remplacement si nécessaire)</li>
+                                    <li>• Appeler un professionnel si problème persiste</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-orange-50 p-6 rounded-xl">
+                        <h3 class="text-xl font-semibold text-orange-800 mb-4 flex items-center">
+                            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Problème : Chauffe trop lente
+                        </h3>
+                        <div class="space-y-3">
+                            <div>
+                                <h4 class="font-medium text-orange-700 mb-1">Causes possibles :</h4>
+                                <ul class="text-sm text-orange-600 space-y-1">
+                                    <li>• Résistance entartrée</li>
+                                    <li>• Mauvais réglage du thermostat</li>
+                                    <li>• Cuve trop calcaire</li>
+                                    <li>• Isolation thermique défectueuse</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-orange-700 mb-1">Solutions :</h4>
+                                <ul class="text-sm text-orange-600 space-y-1">
+                                    <li>• Nettoyer ou remplacer la résistance</li>
+                                    <li>• Ajuster le thermostat (55-60°C recommandé)</li>
+                                    <li>• Détartrage complet de l'appareil</li>
+                                    <li>• Vérifier l'isolation de la cuve</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-yellow-50 p-6 rounded-xl">
+                        <h3 class="text-xl font-semibold text-yellow-800 mb-4 flex items-center">
+                            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                            </svg>
+                            Problème : Fuites d'eau
+                        </h3>
+                        <div class="space-y-3">
+                            <div>
+                                <h4 class="font-medium text-yellow-700 mb-1">Origine des fuites :</h4>
+                                <ul class="text-sm text-yellow-600 space-y-1">
+                                    <li>• Raccords desserrés</li>
+                                    <li>• Joint du groupe de sécurité usé</li>
+                                    <li>• Résistance mal fixée</li>
+                                    <li>• Cuve perforée (anode usée)</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-yellow-700 mb-1">Solutions :</h4>
+                                <ul class="text-sm text-yellow-600 space-y-1">
+                                    <li>• Serrer les raccords (sans trop forcer)</li>
+                                    <li>• Remplacer le joint du groupe de sécurité</li>
+                                    <li>• Vérifier le serrage de la résistance</li>
+                                    <li>• Remplacer l'anode si nécessaire</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Solutions Avancées -->
+                <div class="space-y-6">
+                    <div class="bg-green-50 p-6 rounded-xl">
+                        <h3 class="text-xl font-semibold text-green-800 mb-4 flex items-center">
+                            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Maintenance Préventive
+                        </h3>
+                        <div class="space-y-4">
+                            <div class="bg-white p-4 rounded-lg">
+                                <h4 class="font-medium text-green-700 mb-2">Protection contre le calcaire</h4>
+                                <ul class="text-sm text-green-600 space-y-1">
+                                    <li>• Installation d'un adoucisseur d'eau</li>
+                                    <li>• Filtre anti-calcaire sur l'arrivée d'eau</li>
+                                    <li>• Vidange régulière (tous les 6 mois)</li>
+                                    <li>• Détartrage complet tous les 3-5 ans</li>
+                                </ul>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg">
+                                <h4 class="font-medium text-green-700 mb-2">Optimisation énergétique</h4>
+                                <ul class="text-sm text-green-600 space-y-1">
+                                    <li>• Régler le thermostat à 55-60°C</li>
+                                    <li>• Utiliser le contacteur jour/nuit</li>
+                                    <li>• Isoler les tuyaux d'eau chaude</li>
+                                    <li>• Installer un programmateur intelligent</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-blue-50 p-6 rounded-xl">
+                        <h3 class="text-xl font-semibold text-blue-800 mb-4 flex items-center">
+                            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            Quand Appeler un Professionnel ?
+                        </h3>
+                        <ul class="text-blue-700 space-y-2">
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Panne électrique répétitive</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Fuite importante ou persistante</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Remplacement de la cuve ou de la résistance</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Travaux sur l'installation électrique</span>
+                            </li>
+                            <li class="flex items-start">
+                                <span class="w-2 h-2 bg-blue-500 rounded-full mt-2 mr-3 flex-shrink-0"></span>
+                                <span>Doute sur la sécurité de l'installation</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-purple-50 p-6 rounded-xl">
+                        <h3 class="text-xl font-semibold text-purple-800 mb-4 flex items-center">
+                            <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                            </svg>
+                            Coûts de Réparation
+                        </h3>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex justify-between">
+                                <span class="text-purple-700">Résistance (pièce)</span>
+                                <span class="text-purple-800 font-medium">50-150€</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-purple-700">Thermostat</span>
+                                <span class="text-purple-800 font-medium">30-80€</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-purple-700">Anode magnésium</span>
+                                <span class="text-purple-800 font-medium">20-60€</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-purple-700">Groupe de sécurité</span>
+                                <span class="text-purple-800 font-medium">40-100€</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-purple-700">Main d'œuvre (h)</span>
+                                <span class="text-purple-800 font-medium">50-80€</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Outils de Maintenance -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold text-gray-800 mb-4">Outils de Maintenance</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Équipement nécessaire pour l'entretien de votre chauffe-eau
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Outils de base -->
+                <div class="tool-card bg-white p-6 rounded-xl shadow-lg">
+                    <div class="text-center mb-6">
+                        <img src="resources/outils-maintenance.png" alt="Outils de maintenance" 
+                             class="w-full h-32 object-cover rounded-lg mb-4">
+                        <h3 class="text-xl font-semibold text-gray-800">Outils de Base</h3>
+                    </div>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-center">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
+                            <span>Clés à molette (14-22mm)</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
+                            <span>Tournevis cruciforme et plat</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
+                            <span>Pince multiprise</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
+                            <span>Niveau à bulle</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
+                            <span>Seau et chiffons</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Équipement de test -->
+                <div class="tool-card bg-white p-6 rounded-xl shadow-lg">
+                    <div class="text-center mb-6">
+                        <div class="w-full h-32 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
+                            <svg class="w-16 h-16 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Équipement de Test</h3>
+                    </div>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-center">
+                            <span class="w-2 h-2 bg-orange-500 rounded-full mr-3"></span>
+                            <span>Multimètre digital</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-2 h-2 bg-orange-500 rounded-full mr-3"></span>
+                            <span>Thermomètre infrarouge</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-2 h-2 bg-orange-500 rounded-full mr-3"></span>
+                            <span>Détecteur de calcaire</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-2 h-2 bg-orange-500 rounded-full mr-3"></span>
+                            <span>Testeur de continuité</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-2 h-2 bg-orange-500 rounded-full mr-3"></span>
+                            <span>Mètre ruban</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Produits d'entretien -->
+                <div class="tool-card bg-white p-6 rounded-xl shadow-lg">
+                    <div class="text-center mb-6">
+                        <div class="w-full h-32 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                            <svg class="w-16 h-16 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Produits d'Entretien</h3>
+                    </div>
+                    <ul class="space-y-2 text-gray-700">
+                        <li class="flex items-center">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                            <span>Détartrant spécial chauffe-eau</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                            <span>Joint d'étanchéité neuf</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                            <span>Pâte à joint</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                            <span>Dégraissant ménager</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="w-2 h-2 bg-green-500 rounded-full mr-3"></span>
+                            <span>Vaseline technique</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gray-800 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-4xl font-bold mb-6">Votre Chauffe-Eau est Maintenant Entretenu</h2>
+            <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+                Avec ces guides et outils, vous pouvez maintenant diagnostiquer et entretenir efficacement votre chauffe-eau électrique
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="index.html" class="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105">
+                    Retour à l'Accueil
+                </a>
+                <a href="fonctionnement.html" class="bg-gray-700 hover:bg-gray-600 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300">
+                    Revoir le Fonctionnement
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h3 class="text-2xl font-bold mb-4">Chauffe-Eau Pro</h3>
+                <p class="text-gray-400 mb-6 max-w-2xl mx-auto">
+                    Guide professionnel pour la compréhension et la maintenance des chauffe-eau électriques
+                </p>
+                <div class="border-t border-gray-700 pt-6">
+                    <p class="text-gray-500 text-sm">
+                        © 2025 Chauffe-Eau Pro. Tous droits réservés. Guide éducatif pour professionnels et particuliers.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="main.js"></script>
+    
+    <script>
+        // Gestion de la check-list
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const progressBar = document.getElementById('progress-bar');
+            const progressText = document.getElementById('progress-text');
+            const resultDiv = document.getElementById('check-result');
+            const resultMessage = document.getElementById('result-message');
+            
+            function updateProgress() {
+                const total = checkboxes.length;
+                const checked = document.querySelectorAll('input[type="checkbox"]:checked').length;
+                const percentage = Math.round((checked / total) * 100);
+                
+                progressBar.style.width = percentage + '%';
+                progressText.textContent = percentage + '%';
+                
+                if (percentage === 100) {
+                    resultDiv.classList.remove('hidden');
+                    resultMessage.textContent = 'Votre chauffe-eau semble en bon état. Continuez l\'entretien régulier pour maintenir ses performances.';
+                    showNotification('Check-list complétée avec succès !', 'success');
+                } else if (percentage >= 80) {
+                    resultDiv.classList.remove('hidden');
+                    resultMessage.textContent = 'Quelques points à surveiller. Votre chauffe-eau fonctionne globalement bien.';
+                } else {
+                    resultDiv.classList.add('hidden');
+                }
+            }
+            
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateProgress);
+            });
+            
+            // Animation des cartes de diagnostic
+            document.querySelectorAll('.diagnostic-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const testType = this.dataset.test;
+                    runDiagnostic(testType);
+                });
+            });
+            
+            // Animation des cards au survol
+            document.querySelectorAll('.tool-card, .diagnostic-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    anime({
+                        targets: this,
+                        scale: 1.02,
+                        duration: 300,
+                        easing: 'easeOutQuart'
+                    });
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    anime({
+                        targets: this,
+                        scale: 1,
+                        duration: 300,
+                        easing: 'easeOutQuart'
+                    });
+                });
+            });
+        });
+        
+        // Fonction de diagnostic simulée
+        function runDiagnostic(testType) {
+            showNotification(`Test ${testType} en cours...`, 'info');
+            
+            setTimeout(() => {
+                const results = {
+                    resistance: Math.random() > 0.3 ? 'normal' : 'anormal',
+                    thermostat: Math.random() > 0.4 ? 'normal' : 'anormal',
+                    anode: Math.random() > 0.5 ? 'normal' : 'anormal',
+                    groupe: Math.random() > 0.2 ? 'normal' : 'anormal'
+                };
+                
+                const result = results[testType];
+                const message = result === 'normal' 
+                    ? `Test ${testType} : Composant fonctionne correctement` 
+                    : `Test ${testType} : Anomalie détectée - Intervention recommandée`;
+                
+                showNotification(message, result === 'normal' ? 'success' : 'error');
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
